@@ -15,27 +15,18 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
-    burger.create(['name', 'devoured'], [req.body.name, req.body.devoured], (result) => {
+router.post('/burgers/create', (req, res) => {
+    burger.create(['burger_name', 'devoured'], [req.body.name, req.body.devoured], function(){
       // Send back the ID of the new quote
-      res.redirect("/");
+      res.redirect("/")
     });
 });
 
-router.put("/:id", function(req,res){
+router.put("/api/burgers/:id", function(req,res){
     const condition= "id = " + req.params.id;
     console.log("Updating:", condition);
 
     burger.update({ devoured: req.body.devoured}, condition, function(){
-        res.redirect("/");
-    })
-})
-
-router.delete("/:id", function(req,res){
-    const condition ="id =" + req.params.id;
-    console.log("Deleting, condition")
-
-    burger.delete(condition,function(){
         res.redirect("/");
     })
 })
